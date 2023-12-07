@@ -1,4 +1,7 @@
 # PowerShell eXtreme Directory
+
+<img src="https://github.com/PrimeEagle/PowerShell-eXtreme-Directory/blob/main/extreme%20directory.png?raw=true" width="250" />
+
 Fast directory changing from the console, with pattern matching and caching. Ideal for developers who spend a lot of time in the console.
 
 ### Usage
