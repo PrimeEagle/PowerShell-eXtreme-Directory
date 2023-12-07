@@ -1,5 +1,5 @@
-# PowerShell-eXtreme-Directory
-Fast directory changing from the console, with pattern matching and caching.
+# PowerShell eXtreme Directory
+Fast directory changing from the console, with pattern matching and caching. Ideal for developers who spend a lot of time in the console.
 
 ### Usage
 ```
