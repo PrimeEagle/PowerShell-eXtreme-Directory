@@ -17,6 +17,7 @@ xpb  -  same as "xp", but in addition to changing the directory it also it in Fi
 ### Setup
 In each .ps1 file, edit the following variables at the top:
 ```
-$cacheFile  - the full path to the text file to use for a cache. File does not have to exist. All scripts can share the same cache file, or have diferent ones, depending on what you prefer.
+$cacheFile  - the full path to the text file to use for a cache. File does not have to exist.
+              All scripts can share the same cache file, or have diferent ones, depending on what you prefer.
 $cacheLimit - the number of items to keep in the cach (default is 1000)
 ```
