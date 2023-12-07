@@ -40,13 +40,18 @@ function Find-Directory {
     $ancestors = $currentDirectory.Path -split '\\' | ForEach-Object {
         $path = ''
         for ($i = 0; $i -lt $PSItemIndex + 1; $i++) {
-            $path = Join-Path -Path $path -ChildPath $_[$i]
+            if ($i -eq 0) {
+                $path = $_[$i]
+            } else {
+                $path = Join-Path -Path $path -ChildPath $_[$i]
+            }
         }
         $path
     }
 
     foreach ($ancestor in $ancestors) {
-        $match = $cache | Where-Object { $_ -eq $ancestor -and $_ -like "*$SearchPath*" } | Select-Object -First 1
+        $ancestorName = Split-Path -Path $ancestor -Leaf
+        $match = $cache | Where-Object { $_ -eq $ancestor -and $ancestorName -like "*$SearchPath*" } | Select-Object -First 1
         if ($match) {
             Update-Cache $match
             return $match
@@ -55,7 +60,7 @@ function Find-Directory {
 
     $current = Get-Item -Path $currentDirectory
     while ($current -ne $null) {
-        if ($current.FullName -like "*$SearchPath*") {
+        if ($current.Name -like "*$SearchPath*") {
             Update-Cache $current.FullName
             return $current.FullName
         }

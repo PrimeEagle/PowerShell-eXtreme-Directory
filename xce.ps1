@@ -36,7 +36,9 @@ function Find-Directory {
     $currentDirectory = Get-Location
 
     $cache = Get-Content $cacheFile
-    $match = $cache | Where-Object { $_ -like "*$SearchPath*" -and $_.StartsWith($currentDirectory.Path) } | Select-Object -First 1
+    $match = $cache | Where-Object {
+        $_ -like "*\$SearchPath*" -and $_.StartsWith($currentDirectory.Path) -and $_ -ne $currentDirectory.Path
+    } | Select-Object -First 1
 
     if ($match) {
         Update-Cache $match
@@ -49,17 +51,12 @@ function Find-Directory {
 
     while ($queue.Count -gt 0) {
         $current = $queue.Dequeue()
-        if ($current.FullName -like "*$SearchPath*") {
-            Update-Cache $current.FullName
-            return $current.FullName
-        }
-
-        try {
-            foreach ($subDir in $current.GetDirectories()) {
-                $queue.Enqueue($subDir)
+        foreach ($subDir in $current.GetDirectories()) {
+            if ($subDir.Name -like "*$SearchPath*") {
+                Update-Cache $subDir.FullName
+                return $subDir.FullName
             }
-        }
-        catch {
+            $queue.Enqueue($subDir)
         }
     }
 
