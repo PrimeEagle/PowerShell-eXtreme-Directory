@@ -51,11 +51,12 @@ function Find-Directory {
     } elseif ($ChildSearch) {
         $currentPath = (Get-Location).Path
         $match = $cache | Where-Object { $_.StartsWith($currentPath) -and $_ -like "*$SearchPath*" } | Select-Object -First 1
-    } else {
-        $currentDrive = (Get-Location).Drive.Name + ":"
-        $cache = $cache | Where-Object { $_.StartsWith($currentDrive) }
-        $match = $cache | Where-Object { $_ -like "*$SearchPath*" } | Select-Object -First 1
-    }
+	else {
+		$currentDrive = (Get-Location).Drive.Name + ":"
+		$cache = $cache | Where-Object { $_.StartsWith($currentDrive) }
+		$match = $cache | Where-Object { $_ -like "*$SearchPath*" } |
+				 Sort-Object { $_.Length } | Select-Object -First 1
+	}
 
     if ($match -and (Test-Path $match)) {
         Update-Cache $match
