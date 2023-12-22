@@ -51,12 +51,11 @@ function Find-Directory {
     } elseif ($ChildSearch) {
         $currentPath = (Get-Location).Path
         $match = $cache | Where-Object { $_.StartsWith($currentPath) -and $_ -like "*$SearchPath*" } | Select-Object -First 1
-	else {
-		$currentDrive = (Get-Location).Drive.Name + ":"
-		$cache = $cache | Where-Object { $_.StartsWith($currentDrive) }
-		$match = $cache | Where-Object { $_ -like "*$SearchPath*" } |
-				 Sort-Object { $_.Length } | Select-Object -First 1
-	}
+    } else {
+        $currentDrive = (Get-Location).Drive.Name + ":"
+        $cache = $cache | Where-Object { $_.StartsWith($currentDrive) }
+        $match = $cache | Where-Object { $_ -like "*$SearchPath*" } | Sort-Object { $_.Length } | Select-Object -First 1
+    }
 
     if ($match -and (Test-Path $match)) {
         Update-Cache $match
@@ -90,8 +89,7 @@ function Find-Directory {
                 foreach ($subDir in $current.GetDirectories()) {
                     $queue.Enqueue($subDir)
                 }
-            }
-            catch { }
+            } catch { }
         }
     } elseif ($SearchAllDrives) {
         $drivesToSearch = Get-PSDrive -PSProvider 'FileSystem' | Select-Object -ExpandProperty Name | Sort-Object
@@ -111,33 +109,40 @@ function Find-Directory {
                     foreach ($subDir in $current.GetDirectories()) {
                         $queue.Enqueue($subDir)
                     }
-                }
-                catch { }
+                } catch { }
             }
         }
     } else {
-		$drivesToSearch = if ($SearchAllDrives) { Get-PSDrive -PSProvider 'FileSystem' | Select-Object -ExpandProperty Name | Sort-Object | Where-Object { $_ -ne $currentDrive.Trim(':') } | ForEach-Object { "$_:" } } else { $currentDrive }
-		foreach ($drive in $drivesToSearch) {
-			$root = Get-Item -Path $drive
-			$queue = New-Object System.Collections.Generic.Queue[System.IO.DirectoryInfo]
-			$queue.Enqueue($root)
+        $drivesToSearch = if ($SearchAllDrives) { 
+            Get-PSDrive -PSProvider 'FileSystem' | 
+            Select-Object -ExpandProperty Name | 
+            Sort-Object | 
+            Where-Object { $_ -ne $currentDrive.Trim(':') } | 
+            ForEach-Object { "$($_):" } 
+        } else { 
+            $currentDrive 
+        }
 
-			while ($queue.Count -gt 0) {
-				$current = $queue.Dequeue()
-				if ($current.FullName -like "*$SearchPath*") {
-					Update-Cache $current.FullName
-					return $current.FullName
-				}
+        foreach ($drive in $drivesToSearch) {
+            $root = Get-Item -Path $drive
+            $queue = New-Object System.Collections.Generic.Queue[System.IO.DirectoryInfo]
+            $queue.Enqueue($root)
 
-				try {
-					foreach ($subDir in $current.GetDirectories()) {
-						$queue.Enqueue($subDir)
-					}
-				}
-				catch { }
-			}
-		}
-	}
+            while ($queue.Count -gt 0) {
+                $current = $queue.Dequeue()
+                if ($current.FullName -like "*$SearchPath*") {
+                    Update-Cache $current.FullName
+                    return $current.FullName
+                }
+
+                try {
+                    foreach ($subDir in $current.GetDirectories()) {
+                        $queue.Enqueue($subDir)
+                    }
+                } catch { }
+            }
+        }
+    }
 	
     return $null
 }

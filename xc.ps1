@@ -2,7 +2,7 @@ param (
     [string]$Path
 )
 
-. .\Directory-Search-Functions.ps1
+. "D:\My Code\PowerShell Scripts\Directory-Search-Functions.ps1"
 
 
 $directory = Find-Directory -SearchPath $Path -ChildSearch
