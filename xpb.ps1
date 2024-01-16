@@ -3,7 +3,9 @@ param (
     [switch]$All
 )
 
-. "D:\My Code\PowerShell Scripts\Directory-Search-Functions.ps1"
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$includeFile = Join-Path $scriptPath "Directory-Search-Functions.ps1"
+. $includeFile
 
 
 $directory = Find-Directory -SearchPath $Path -ParentSearch
