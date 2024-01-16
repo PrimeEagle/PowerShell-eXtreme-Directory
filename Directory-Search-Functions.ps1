@@ -1,4 +1,5 @@
-$cacheFile = "D:\My Code\PowerShell Scripts\_xd-cache.txt"
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$cacheFile = Join-Path $scriptPath "_xd-cache.txt"
 $cacheLimit = 1000
 
 function Update-Cache {
