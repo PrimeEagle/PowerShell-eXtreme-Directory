@@ -47,6 +47,18 @@ Process
 {	
 	Add-PathToProfile -PathVariable 'Path' -Path (Get-Location).Path
 	Add-PathToProfile -PathVariable 'PSModulePath' -Path $ModulesPath
+	
+	Add-AliasToProfile -Script 'Set-DirectoryX-Console' -Alias 'x'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Both' -Alias 'xb'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Child-Console' -Alias 'xc'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Child-Both' -Alias 'xcb'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Child-Explorer' -Alias 'xce'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Explorer' -Alias 'xe'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Parent-Console' -Alias 'xp'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Parent-Both' -Alias 'xpb'
+	Add-AliasToProfile -Script 'Set-DirectoryX-Parent-Explorer' -Alias 'xpe'
+	Add-AliasToProfile -Script 'Get-eXtremeDirectoryHelpo' -Alias 'gxdh'
+	Add-AliasToProfile -Script 'Get-eXtremeDirectoryHelpo' -Alias 'xdhelp'
 }
 
 End

@@ -46,6 +46,18 @@ Begin
 Process
 {	
 	Remove-PathFromProfile -PathVariable 'Path' -Path (Get-Location).Path
+	
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Console' -Alias 'x'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Both' -Alias 'xb'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Child-Console' -Alias 'xc'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Child-Both' -Alias 'xcb'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Child-Explorer' -Alias 'xce'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Explorer' -Alias 'xe'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Parent-Console' -Alias 'xp'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Parent-Both' -Alias 'xpb'
+	Remove-AliasFromProfile -Script 'Set-DirectoryX-Parent-Explorer' -Alias 'xpe'
+	Remove-AliasFromProfile -Script 'Get-eXtremeDirectoryHelpo' -Alias 'gxdh'
+	Remove-AliasFromProfile -Script 'Get-eXtremeDirectoryHelpo' -Alias 'xdhelp'
 }
 
 End
