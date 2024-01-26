@@ -56,10 +56,7 @@ Process
 
 		$directory = Find-Directory -SearchPath $Path -ChildSearch -SearchAllDrives:$All
 		if ($directory) {
-			if (ShouldProcess($directory, "change to"))
-			{
-				Set-Location $directory
-			}
+			Set-Location $directory
 		} else {
 			Write-Host "No matching directory found for '$Path'."
 		}

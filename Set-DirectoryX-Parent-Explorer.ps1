@@ -56,10 +56,7 @@ Process
 
 		$directory = Find-Directory -SearchPath $Path -ParentSearch -SearchAllDrives:$All
 		if ($directory) {
-			if (ShouldProcess($directory, "change to"))
-			{
-				 Start-Process "explorer.exe" -ArgumentList $directory
-			}
+			Start-Process "explorer.exe" -ArgumentList $directory
 		} else {
 			Write-Host "No matching directory found for '$Path'."
 		}

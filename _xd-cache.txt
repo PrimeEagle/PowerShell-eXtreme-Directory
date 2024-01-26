@@ -1,0 +1,3 @@
+D:\My Code
+C:\Users\johnv\.vscode
+D:\VNet bin
