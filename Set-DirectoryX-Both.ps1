@@ -55,9 +55,13 @@ Process
 		. $includeFile
 
 		$directory = Find-Directory -SearchPath $Path -SearchAllDrives:$All
-		if ($directory) {
-			Set-Location $directory
-			Start-Process "explorer.exe" -ArgumentList $directory
+		if ($directory) 
+		{
+			if ($PSCmdlet.ShouldProcess($directory, 'Set location.')) 
+			{
+				Set-Location $directory
+				Start-Process "explorer.exe" -ArgumentList $directory
+			}
 		} else {
 			Write-Host "No matching directory found for '$Path'."
 		}
